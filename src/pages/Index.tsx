@@ -100,7 +100,7 @@ export default function Index() {
       {/* NAV */}
       <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-12 py-4 bg-linen/90 backdrop-blur-md border-b border-clay/20">
         <span className="font-cormorant text-xl font-semibold text-bark tracking-wide">
-          Елена Соколова
+          Артамонова Екатерина
         </span>
         <div className="hidden md:flex items-center gap-8 text-sm text-bark/70">
           <a href="#services" className="hover:text-moss transition-colors">Услуги</a>
@@ -246,7 +246,7 @@ export default function Index() {
                 О мастере
               </div>
               <h2 className="font-cormorant text-4xl md:text-5xl text-bark font-light mb-6">
-                Елена Соколова
+                Артамонова Екатерина
               </h2>
               <p className="text-bark/70 leading-relaxed mb-6">
                 Более 10 лет я посвятила изучению возможностей человеческого тела. Моя миссия — помогать людям обрести баланс через естественные методы оздоровления.
@@ -443,7 +443,7 @@ export default function Index() {
       <footer className="py-12 px-6 md:px-12 border-t border-clay/20">
         <div className="container mx-auto max-w-6xl flex flex-col md:flex-row items-center justify-between gap-6">
           <div>
-            <div className="font-cormorant text-xl font-semibold text-bark">Елена Соколова</div>
+            <div className="font-cormorant text-xl font-semibold text-bark">Артамонова Екатерина</div>
             <div className="text-bark/55 text-sm mt-1">Мастер массажа и ЛФК · Москва</div>
           </div>
           <div className="flex gap-6 text-sm text-bark/60">
@@ -465,7 +465,7 @@ export default function Index() {
           </div>
         </div>
         <div className="text-center text-bark/35 text-xs mt-8">
-          © 2024 Елена Соколова. Все права защищены.
+          © 2024 Артамонова Екатерина. Все права защищены.
         </div>
       </footer>
     </div>

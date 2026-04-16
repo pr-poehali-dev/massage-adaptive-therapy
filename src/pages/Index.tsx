@@ -655,15 +655,132 @@ export default function Index() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
-            <div className="md:col-span-2 rounded-3xl overflow-hidden border border-clay/20 shadow-sm" style={{ height: "420px" }}>
-              <iframe
-                src="https://yandex.ru/map-widget/v1/?ll=82.938782%2C54.984206&z=16&pt=82.938782%2C54.984206&text=%D0%9D%D0%BE%D0%B2%D0%BE%D1%81%D0%B8%D0%B1%D0%B8%D1%80%D1%81%D0%BA%2C+%D1%83%D0%BB.+%D0%9F%D0%BE%D1%82%D0%B0%D0%BD%D0%B8%D0%BD%D1%81%D0%BA%D0%B0%D1%8F%2C+6"
-                width="100%"
-                height="100%"
-                frameBorder="0"
-                allowFullScreen
-                title="Карта — Потанинская 6, Новосибирск"
-              />
+            {/* SVG MAP */}
+            <div className="md:col-span-2 rounded-3xl overflow-hidden border border-clay/20 shadow-sm bg-[#e8f0e4]" style={{ height: "420px" }}>
+              <svg viewBox="0 0 700 420" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  {/* Route animation */}
+                  <style>{`
+                    @keyframes drawRoute {
+                      from { stroke-dashoffset: 900; }
+                      to   { stroke-dashoffset: 0; }
+                    }
+                    @keyframes popIn {
+                      0%   { transform: scale(0); opacity: 0; }
+                      70%  { transform: scale(1.3); opacity: 1; }
+                      100% { transform: scale(1); opacity: 1; }
+                    }
+                    @keyframes pulse {
+                      0%, 100% { r: 10; opacity: 0.6; }
+                      50%       { r: 16; opacity: 0.2; }
+                    }
+                    @keyframes walkDot {
+                      0%   { offset-distance: 0%; }
+                      100% { offset-distance: 100%; }
+                    }
+                    .route-line {
+                      stroke-dasharray: 900;
+                      stroke-dashoffset: 900;
+                      animation: drawRoute 2.4s cubic-bezier(0.4,0,0.2,1) 0.3s forwards;
+                    }
+                    .pin-metro {
+                      transform-origin: 120px 290px;
+                      animation: popIn 0.4s ease 2.8s both;
+                    }
+                    .pin-dest {
+                      transform-origin: 560px 110px;
+                      animation: popIn 0.5s ease 2.6s both;
+                    }
+                    .pulse-dest {
+                      transform-origin: 560px 110px;
+                      animation: pulse 1.8s ease-in-out 3.1s infinite;
+                    }
+                    .walk-dot {
+                      offset-path: path('M120,290 L120,230 L200,230 L200,180 L310,180 L310,140 L430,140 L430,110 L560,110');
+                      animation: walkDot 2.4s cubic-bezier(0.4,0,0.2,1) 0.3s forwards;
+                      offset-distance: 0%;
+                    }
+                  `}</style>
+                </defs>
+
+                {/* Background */}
+                <rect width="700" height="420" fill="#eef4ea" rx="24"/>
+
+                {/* City blocks */}
+                <rect x="40"  y="60"  width="120" height="80"  rx="6" fill="#dde8d4" stroke="#c8d8be" strokeWidth="1"/>
+                <rect x="40"  y="160" width="60"  height="110" rx="6" fill="#dde8d4" stroke="#c8d8be" strokeWidth="1"/>
+                <rect x="110" y="160" width="70"  height="50"  rx="6" fill="#dde8d4" stroke="#c8d8be" strokeWidth="1"/>
+                <rect x="110" y="220" width="70"  height="50"  rx="6" fill="#dde8d4" stroke="#c8d8be" strokeWidth="1"/>
+                <rect x="220" y="60"  width="100" height="100" rx="6" fill="#dde8d4" stroke="#c8d8be" strokeWidth="1"/>
+                <rect x="220" y="200" width="60"  height="80"  rx="6" fill="#dde8d4" stroke="#c8d8be" strokeWidth="1"/>
+                <rect x="340" y="60"  width="80"  height="60"  rx="6" fill="#dde8d4" stroke="#c8d8be" strokeWidth="1"/>
+                <rect x="340" y="200" width="60"  height="90"  rx="6" fill="#dde8d4" stroke="#c8d8be" strokeWidth="1"/>
+                <rect x="460" y="40"  width="90"  height="50"  rx="6" fill="#dde8d4" stroke="#c8d8be" strokeWidth="1"/>
+                <rect x="460" y="160" width="60"  height="80"  rx="6" fill="#dde8d4" stroke="#c8d8be" strokeWidth="1"/>
+                <rect x="560" y="160" width="100" height="80"  rx="6" fill="#dde8d4" stroke="#c8d8be" strokeWidth="1"/>
+                <rect x="560" y="260" width="100" height="120" rx="6" fill="#dde8d4" stroke="#c8d8be" strokeWidth="1"/>
+                <rect x="200" y="310" width="100" height="80"  rx="6" fill="#dde8d4" stroke="#c8d8be" strokeWidth="1"/>
+                <rect x="340" y="320" width="100" height="70"  rx="6" fill="#dde8d4" stroke="#c8d8be" strokeWidth="1"/>
+                <rect x="460" y="300" width="80"  height="100" rx="6" fill="#dde8d4" stroke="#c8d8be" strokeWidth="1"/>
+
+                {/* Streets — horizontal */}
+                <rect x="0"   y="215" width="700" height="16" rx="0" fill="#f5f0e6" stroke="#ddd5c0" strokeWidth="0.5"/>
+                <rect x="0"   y="125" width="700" height="14" rx="0" fill="#f5f0e6" stroke="#ddd5c0" strokeWidth="0.5"/>
+                <rect x="0"   y="290" width="700" height="12" rx="0" fill="#ede8db" stroke="#ddd5c0" strokeWidth="0.5"/>
+
+                {/* Streets — vertical */}
+                <rect x="180" y="0" width="18"  height="420" rx="0" fill="#f5f0e6" stroke="#ddd5c0" strokeWidth="0.5"/>
+                <rect x="320" y="0" width="16"  height="420" rx="0" fill="#f5f0e6" stroke="#ddd5c0" strokeWidth="0.5"/>
+                <rect x="450" y="0" width="14"  height="420" rx="0" fill="#f5f0e6" stroke="#ddd5c0" strokeWidth="0.5"/>
+                <rect x="90"  y="0" width="14"  height="420" rx="0" fill="#f5f0e6" stroke="#ddd5c0" strokeWidth="0.5"/>
+                <rect x="550" y="0" width="12"  height="420" rx="0" fill="#ede8db" stroke="#ddd5c0" strokeWidth="0.5"/>
+
+                {/* Street labels */}
+                <text x="198" y="212" fontSize="9" fill="#9a8e78" fontFamily="sans-serif" transform="rotate(-90,198,212)">ул. Ленина</text>
+                <text x="338" y="208" fontSize="9" fill="#9a8e78" fontFamily="sans-serif" transform="rotate(-90,338,208)">ул. Серебренниковская</text>
+                <text x="350" y="122" fontSize="9" fill="#9a8e78" fontFamily="sans-serif">пр. Дмитрия Яворницкого</text>
+                <text x="580" y="108" fontSize="9" fill="#9a8e78" fontFamily="sans-serif">ул. Потанинская</text>
+                <text x="15"  y="209" fontSize="8" fill="#9a8e78" fontFamily="sans-serif">ул. Щетинкина</text>
+
+                {/* Animated RED route */}
+                <polyline
+                  className="route-line"
+                  points="120,290 120,230 200,230 200,180 310,180 310,140 430,140 430,110 560,110"
+                  fill="none"
+                  stroke="#e53935"
+                  strokeWidth="4"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+
+                {/* Walking dot along route */}
+                <circle className="walk-dot" r="5" fill="#e53935" opacity="0.85"/>
+
+                {/* METRO pin */}
+                <g className="pin-metro">
+                  <circle cx="120" cy="290" r="18" fill="#1565c0" opacity="0.15"/>
+                  <circle cx="120" cy="290" r="13" fill="#1565c0"/>
+                  <text x="120" y="294" fontSize="11" fill="white" textAnchor="middle" fontWeight="bold" fontFamily="sans-serif">M</text>
+                  <rect x="60" y="308" width="120" height="22" rx="11" fill="white" opacity="0.9"/>
+                  <text x="120" y="323" fontSize="9.5" fill="#1565c0" textAnchor="middle" fontFamily="sans-serif" fontWeight="600">Площадь Ленина</text>
+                </g>
+
+                {/* DESTINATION pulse ring */}
+                <circle className="pulse-dest" cx="560" cy="110" r="10" fill="#e53935" opacity="0.4"/>
+
+                {/* DESTINATION pin */}
+                <g className="pin-dest">
+                  <circle cx="560" cy="110" r="16" fill="#e53935" opacity="0.18"/>
+                  <circle cx="560" cy="110" r="11" fill="#e53935"/>
+                  <text x="560" y="114" fontSize="13" fill="white" textAnchor="middle" fontFamily="sans-serif">●</text>
+                  <rect x="474" y="78" width="172" height="24" rx="12" fill="white" opacity="0.95"/>
+                  <text x="560" y="94" fontSize="9.5" fill="#c62828" textAnchor="middle" fontFamily="sans-serif" fontWeight="700">Потанинская, 6 — каб. 2</text>
+                </g>
+
+                {/* Distance badge */}
+                <rect x="270" y="148" width="90" height="20" rx="10" fill="#e53935" opacity="0.9"/>
+                <text x="315" y="162" fontSize="9" fill="white" textAnchor="middle" fontFamily="sans-serif" fontWeight="600">~12 мин пешком</text>
+              </svg>
             </div>
 
             <div className="flex flex-col gap-4">
@@ -679,11 +796,22 @@ export default function Index() {
                 </p>
               </div>
 
-              <div className="bg-warm-white rounded-2xl p-6 border border-clay/20 flex-1">
-                <div className="w-10 h-10 bg-moss/15 rounded-full flex items-center justify-center mb-4">
+              <div className="bg-warm-white rounded-2xl p-6 border border-clay/20">
+                <div className="w-10 h-10 bg-[#1565c0]/10 rounded-full flex items-center justify-center mb-3">
+                  <span className="text-[#1565c0] font-bold text-base">M</span>
+                </div>
+                <h3 className="font-cormorant text-xl text-bark font-semibold mb-1">От метро</h3>
+                <p className="text-bark/70 text-sm leading-relaxed">
+                  Ст. «Площадь Ленина»<br />
+                  ~12 минут пешком
+                </p>
+              </div>
+
+              <div className="bg-warm-white rounded-2xl p-6 border border-clay/20">
+                <div className="w-10 h-10 bg-moss/15 rounded-full flex items-center justify-center mb-3">
                   <Icon name="Clock" size={18} className="text-moss" />
                 </div>
-                <h3 className="font-cormorant text-xl text-bark font-semibold mb-2">Часы работы</h3>
+                <h3 className="font-cormorant text-xl text-bark font-semibold mb-1">Часы работы</h3>
                 <p className="text-bark/70 text-sm leading-relaxed">
                   Пн–Пт: 9:00 — 20:00<br />
                   Сб: 10:00 — 18:00<br />
@@ -692,13 +820,13 @@ export default function Index() {
               </div>
 
               <a
-                href="https://yandex.ru/maps/?text=Новосибирск+Потанинская+6"
+                href="https://2gis.ru/novosibirsk/directions/pedestrian/82.920174%2C54.989239/82.938782%2C54.984206"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-moss text-warm-white py-3 px-6 rounded-full text-sm font-medium flex items-center justify-center gap-2 hover:opacity-90 transition-opacity"
               >
                 <Icon name="Navigation" size={16} />
-                Построить маршрут
+                Открыть в 2ГИС
               </a>
             </div>
           </div>

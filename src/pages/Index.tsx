@@ -169,6 +169,7 @@ export default function Index() {
           <a href="#gallery" className="hover:text-moss transition-colors">Галерея</a>
           <a href="#reviews" className="hover:text-moss transition-colors">Отзывы</a>
           <a href="#booking" className="hover:text-moss transition-colors">Запись</a>
+          <a href="#map" className="hover:text-moss transition-colors">Адрес</a>
         </div>
         <a href="#booking"
           className="bg-moss text-warm-white text-sm px-5 py-2 rounded-full hover:opacity-90 transition-opacity font-golos">
@@ -634,6 +635,73 @@ export default function Index() {
               </p>
             </form>
           )}
+        </div>
+      </section>
+
+      {/* MAP */}
+      <section id="map" className="py-24 px-6 md:px-12">
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center mb-12">
+            <div className="divider-leaf font-cormorant text-clay text-lg italic mb-4">
+              Как нас найти
+            </div>
+            <h2 className="font-cormorant text-4xl md:text-5xl text-bark font-light mb-4">
+              Адрес приёма
+            </h2>
+            <div className="inline-flex items-center gap-2 bg-clay/10 text-bark/70 text-sm px-5 py-2 rounded-full">
+              <Icon name="MapPin" size={14} className="text-clay" />
+              г. Новосибирск, ул. Потанинская, 6, кабинет 2
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="md:col-span-2 rounded-3xl overflow-hidden border border-clay/20 shadow-sm" style={{ height: "420px" }}>
+              <iframe
+                src="https://yandex.ru/map-widget/v1/?ll=82.938782%2C54.984206&z=16&pt=82.938782%2C54.984206&text=%D0%9D%D0%BE%D0%B2%D0%BE%D1%81%D0%B8%D0%B1%D0%B8%D1%80%D1%81%D0%BA%2C+%D1%83%D0%BB.+%D0%9F%D0%BE%D1%82%D0%B0%D0%BD%D0%B8%D0%BD%D1%81%D0%BA%D0%B0%D1%8F%2C+6"
+                width="100%"
+                height="100%"
+                frameBorder="0"
+                allowFullScreen
+                title="Карта — Потанинская 6, Новосибирск"
+              />
+            </div>
+
+            <div className="flex flex-col gap-4">
+              <div className="bg-warm-white rounded-2xl p-6 border border-clay/20 flex-1">
+                <div className="w-10 h-10 bg-clay/15 rounded-full flex items-center justify-center mb-4">
+                  <Icon name="MapPin" size={18} className="text-clay" />
+                </div>
+                <h3 className="font-cormorant text-xl text-bark font-semibold mb-2">Адрес</h3>
+                <p className="text-bark/70 text-sm leading-relaxed">
+                  г. Новосибирск<br />
+                  ул. Потанинская, 6<br />
+                  кабинет 2
+                </p>
+              </div>
+
+              <div className="bg-warm-white rounded-2xl p-6 border border-clay/20 flex-1">
+                <div className="w-10 h-10 bg-moss/15 rounded-full flex items-center justify-center mb-4">
+                  <Icon name="Clock" size={18} className="text-moss" />
+                </div>
+                <h3 className="font-cormorant text-xl text-bark font-semibold mb-2">Часы работы</h3>
+                <p className="text-bark/70 text-sm leading-relaxed">
+                  Пн–Пт: 9:00 — 20:00<br />
+                  Сб: 10:00 — 18:00<br />
+                  Вс: по записи
+                </p>
+              </div>
+
+              <a
+                href="https://yandex.ru/maps/?text=Новосибирск+Потанинская+6"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-moss text-warm-white py-3 px-6 rounded-full text-sm font-medium flex items-center justify-center gap-2 hover:opacity-90 transition-opacity"
+              >
+                <Icon name="Navigation" size={16} />
+                Построить маршрут
+              </a>
+            </div>
+          </div>
         </div>
       </section>
 

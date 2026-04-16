@@ -545,6 +545,10 @@ export default function Index() {
             <p className="text-bark/60 text-sm">
               Выберите услугу и удобное время — я свяжусь с вами для подтверждения
             </p>
+            <div className="inline-flex items-center gap-2 bg-clay/10 text-bark/70 text-sm px-5 py-2 rounded-full mt-4">
+              <Icon name="MapPin" size={14} className="text-clay" />
+              г. Новосибирск, ул. Потанинская, 6, кабинет 2
+            </div>
           </div>
 
           {sent ? (
@@ -639,6 +643,10 @@ export default function Index() {
           <div>
             <div className="font-cormorant text-xl font-semibold text-bark">Артамонова Екатерина</div>
             <div className="text-bark/55 text-sm mt-1">Мастер массажа и ЛФК</div>
+            <div className="flex items-center gap-1 text-bark/50 text-xs mt-1">
+              <Icon name="MapPin" size={12} />
+              г. Новосибирск, ул. Потанинская, 6, кабинет 2
+            </div>
           </div>
           <div className="flex gap-6 text-sm text-bark/60">
             <a href="#services" className="hover:text-moss transition-colors">Услуги</a>

@@ -4,15 +4,81 @@ import Icon from "@/components/ui/icon";
 const HERO_IMG = "https://cdn.poehali.dev/projects/9110f643-73a0-48e7-bd16-82bb950d8c0a/files/4d837275-42a9-4ff7-8699-cf2e6416b431.jpg";
 const MASSAGE_IMG = "https://cdn.poehali.dev/projects/9110f643-73a0-48e7-bd16-82bb950d8c0a/files/5f05955b-f661-4280-8595-4659bafcd154.jpg";
 const HIRUDO_IMG = "https://cdn.poehali.dev/projects/9110f643-73a0-48e7-bd16-82bb950d8c0a/files/78da9f2a-0e65-49dd-a210-dfb640de8985.jpg";
+const PRICE_PHOTO = "https://cdn.poehali.dev/projects/9110f643-73a0-48e7-bd16-82bb950d8c0a/bucket/f0772047-f61f-4ac8-8d7e-23e3497c8e08.jpg";
+
+const GALLERY = [
+  {
+    url: "https://cdn.poehali.dev/projects/9110f643-73a0-48e7-bd16-82bb950d8c0a/bucket/f0772047-f61f-4ac8-8d7e-23e3497c8e08.jpg",
+    caption: "Выдача удостоверения выпускнику",
+  },
+  {
+    url: "https://cdn.poehali.dev/projects/9110f643-73a0-48e7-bd16-82bb950d8c0a/bucket/4da7ed81-0bbd-457a-8402-e01505b8fdf3.jpg",
+    caption: "Вручение сертификата",
+  },
+  {
+    url: "https://cdn.poehali.dev/projects/9110f643-73a0-48e7-bd16-82bb950d8c0a/bucket/376189a2-806f-4ccd-bc8b-f042a1898d30.jpg",
+    caption: "Практическое занятие",
+  },
+  {
+    url: "https://cdn.poehali.dev/projects/9110f643-73a0-48e7-bd16-82bb950d8c0a/bucket/788fec8c-4f8f-4b85-a64c-1fe6692253da.jpg",
+    caption: "Работа с пациентом",
+  },
+  {
+    url: "https://cdn.poehali.dev/projects/9110f643-73a0-48e7-bd16-82bb950d8c0a/bucket/c30877c0-67ce-428e-9d13-46d066e5ad67.jpg",
+    caption: "Реабилитационный сеанс",
+  },
+];
+
+const priceList = [
+  {
+    title: "Консультация / диагностика",
+    items: [{ duration: null, price: "1 500 руб" }],
+  },
+  {
+    title: "Общий разминающий массаж",
+    items: [
+      { duration: "40 мин", price: "1 300 руб" },
+      { duration: "60 мин", price: "2 000 руб" },
+    ],
+  },
+  {
+    title: "Миофасциальный триггерный массаж",
+    items: [
+      { duration: "40 мин", price: "1 200 руб" },
+      { duration: "60 мин", price: "1 800 руб" },
+    ],
+  },
+  {
+    title: "Висцеральный массаж",
+    items: [
+      { duration: "40 мин", price: "1 500 руб" },
+      { duration: "60 мин", price: "2 000 руб" },
+    ],
+  },
+  {
+    title: "Локальный массаж ШВЗ/спина, ноги",
+    items: [
+      { duration: "30 мин", price: "850 руб" },
+      { duration: "40 мин", price: "1 200 руб" },
+    ],
+  },
+  {
+    title: "Массаж Гуаша для лица и тела",
+    items: [
+      { duration: "30 мин", price: "850 руб" },
+      { duration: "40 мин", price: "1 200 руб" },
+    ],
+  },
+];
 
 const services = [
   {
     id: 1,
     icon: "Hand",
     title: "Массаж",
-    desc: "Классический, расслабляющий, лечебный и спортивный массаж. Снимаю мышечное напряжение, восстанавливаю подвижность, устраняю боль.",
-    price: "от 2 500 ₽",
-    duration: "60–90 мин",
+    desc: "Общий разминающий, миофасциальный, висцеральный, локальный и массаж Гуаша. Снимаю мышечное напряжение, восстанавливаю подвижность, устраняю боль.",
+    price: "от 850 руб",
+    duration: "30–60 мин",
     color: "var(--clay)",
     img: MASSAGE_IMG,
   },
@@ -75,19 +141,13 @@ const reviews = [
   },
 ];
 
-const timeSlots = [
-  "09:00", "10:00", "11:00", "12:00",
-  "13:00", "14:00", "15:00", "16:00",
-  "17:00", "18:00", "19:00",
-];
-
 export default function Index() {
   const [selectedService, setSelectedService] = useState("");
-  const [selectedTime, setSelectedTime] = useState("");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [date, setDate] = useState("");
   const [sent, setSent] = useState(false);
+  const [galleryOpen, setGalleryOpen] = useState<number | null>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -104,7 +164,9 @@ export default function Index() {
         </span>
         <div className="hidden md:flex items-center gap-8 text-sm text-bark/70">
           <a href="#services" className="hover:text-moss transition-colors">Услуги</a>
+          <a href="#price" className="hover:text-moss transition-colors">Прайс</a>
           <a href="#about" className="hover:text-moss transition-colors">О мастере</a>
+          <a href="#gallery" className="hover:text-moss transition-colors">Галерея</a>
           <a href="#reviews" className="hover:text-moss transition-colors">Отзывы</a>
           <a href="#booking" className="hover:text-moss transition-colors">Запись</a>
         </div>
@@ -134,7 +196,7 @@ export default function Index() {
           <div className="max-w-xl">
             <div className="animate-fade-up inline-flex items-center gap-2 bg-clay/15 text-clay text-xs font-medium px-4 py-2 rounded-full mb-6">
               <span>🌿</span>
-              <span>Сертифицированный мастер · Москва</span>
+              <span>Сертифицированный мастер · Массаж и ЛФК</span>
             </div>
             <h1 className="animate-fade-up delay-100 font-cormorant text-5xl md:text-7xl font-light text-bark leading-none mb-6">
               Здоровье через<br />
@@ -149,10 +211,10 @@ export default function Index() {
                 <Icon name="Calendar" size={18} />
                 Записаться на сеанс
               </a>
-              <a href="#services"
+              <a href="#price"
                 className="border border-bark/30 text-bark px-8 py-4 rounded-full text-base hover:border-moss hover:text-moss transition-all inline-flex items-center gap-2">
                 <Icon name="ChevronDown" size={18} />
-                Узнать об услугах
+                Посмотреть прайс
               </a>
             </div>
 
@@ -220,8 +282,87 @@ export default function Index() {
         </div>
       </section>
 
+      {/* PRICE LIST */}
+      <section id="price" className="py-24 px-6 md:px-12 bg-warm-white">
+        <div className="container mx-auto max-w-4xl">
+          <div className="text-center mb-16">
+            <div className="divider-leaf font-cormorant text-clay text-lg italic mb-4">
+              Стоимость услуг
+            </div>
+            <h2 className="font-cormorant text-4xl md:text-5xl text-bark font-light">
+              Прайс-лист
+            </h2>
+          </div>
+
+          <div className="bg-linen rounded-3xl overflow-hidden border border-clay/20 shadow-sm">
+            {/* Header with photo */}
+            <div className="relative h-48 md:h-64 overflow-hidden">
+              <div
+                className="absolute inset-0"
+                style={{
+                  background: "linear-gradient(135deg, #c4788a 0%, #d4a0aa 40%, #e8c4c8 70%, #f0d8da 100%)"
+                }}
+              />
+              <div className="absolute inset-0 flex items-center justify-between px-8 md:px-16">
+                <div>
+                  <p className="font-cormorant text-white/80 text-lg italic mb-1">мастер массажа и ЛФК</p>
+                  <h3 className="font-cormorant text-3xl md:text-4xl font-semibold text-white leading-tight">
+                    Артамонова<br />Екатерина
+                  </h3>
+                </div>
+                <div className="w-28 h-28 md:w-36 md:h-36 rounded-full overflow-hidden border-4 border-white/40 shadow-lg shrink-0">
+                  <img
+                    src={PRICE_PHOTO}
+                    alt="Екатерина Артамонова"
+                    className="w-full h-full object-cover object-top"
+                  />
+                </div>
+              </div>
+              {/* Wave SVG */}
+              <svg className="absolute bottom-0 left-0 right-0 w-full" viewBox="0 0 1440 60" fill="none" preserveAspectRatio="none">
+                <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="#f7f3ec" />
+              </svg>
+            </div>
+
+            {/* Price rows */}
+            <div className="p-6 md:p-10 space-y-0">
+              {priceList.map((item, idx) => (
+                <div
+                  key={item.title}
+                  className={`py-5 flex flex-col sm:flex-row sm:items-center gap-3 ${idx < priceList.length - 1 ? "border-b border-clay/20" : ""}`}
+                >
+                  <div className="flex-1">
+                    <span className="font-cormorant text-xl text-bark font-medium">{item.title}</span>
+                  </div>
+                  <div className="flex gap-4 flex-wrap">
+                    {item.items.map((opt) => (
+                      <div key={opt.price} className="flex items-center gap-3">
+                        {opt.duration && (
+                          <span className="text-sm text-bark/50 flex items-center gap-1">
+                            <Icon name="Clock" size={12} />
+                            {opt.duration}
+                          </span>
+                        )}
+                        <span className="font-semibold text-moss text-base whitespace-nowrap">{opt.price}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="px-6 md:px-10 pb-8">
+              <a href="#booking"
+                className="block w-full text-center bg-moss text-warm-white py-4 rounded-full font-medium text-base hover:opacity-90 transition-all hover:scale-[1.01]">
+                Записаться на сеанс
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ABOUT */}
-      <section id="about" className="py-24 px-6 md:px-12 bg-warm-white">
+      <section id="about" className="py-24 px-6 md:px-12">
         <div className="container mx-auto max-w-6xl">
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <div className="relative">
@@ -272,6 +413,79 @@ export default function Index() {
             </div>
           </div>
         </div>
+      </section>
+
+      {/* GALLERY */}
+      <section id="gallery" className="py-24 px-6 md:px-12 bg-warm-white">
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center mb-16">
+            <div className="divider-leaf font-cormorant text-clay text-lg italic mb-4">
+              Работа и обучение
+            </div>
+            <h2 className="font-cormorant text-4xl md:text-5xl text-bark font-light">
+              Галерея
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            {GALLERY.map((item, i) => (
+              <div
+                key={i}
+                className={`relative overflow-hidden rounded-2xl cursor-pointer group ${i === 0 ? "md:col-span-2 row-span-2" : ""}`}
+                style={{ aspectRatio: i === 0 ? "16/9" : "1/1" }}
+                onClick={() => setGalleryOpen(i)}
+              >
+                <img
+                  src={item.url}
+                  alt={item.caption}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-bark/0 group-hover:bg-bark/30 transition-colors duration-300 flex items-end">
+                  <p className="text-white text-sm font-medium px-4 py-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    {item.caption}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Lightbox */}
+        {galleryOpen !== null && (
+          <div
+            className="fixed inset-0 z-50 bg-bark/80 backdrop-blur-sm flex items-center justify-center p-4"
+            onClick={() => setGalleryOpen(null)}
+          >
+            <div className="relative max-w-3xl w-full" onClick={(e) => e.stopPropagation()}>
+              <img
+                src={GALLERY[galleryOpen].url}
+                alt={GALLERY[galleryOpen].caption}
+                className="w-full max-h-[80vh] object-contain rounded-2xl"
+              />
+              <p className="text-white/80 text-center mt-3 text-sm">{GALLERY[galleryOpen].caption}</p>
+              <button
+                onClick={() => setGalleryOpen(null)}
+                className="absolute -top-4 -right-4 w-9 h-9 bg-white rounded-full flex items-center justify-center text-bark hover:bg-clay/20 transition-colors"
+              >
+                <Icon name="X" size={16} />
+              </button>
+              <div className="flex justify-center gap-3 mt-4">
+                <button
+                  onClick={() => setGalleryOpen((galleryOpen - 1 + GALLERY.length) % GALLERY.length)}
+                  className="w-9 h-9 bg-white/20 rounded-full flex items-center justify-center text-white hover:bg-white/40 transition-colors"
+                >
+                  <Icon name="ChevronLeft" size={18} />
+                </button>
+                <button
+                  onClick={() => setGalleryOpen((galleryOpen + 1) % GALLERY.length)}
+                  className="w-9 h-9 bg-white/20 rounded-full flex items-center justify-center text-white hover:bg-white/40 transition-colors"
+                >
+                  <Icon name="ChevronRight" size={18} />
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </section>
 
       {/* REVIEWS */}
@@ -381,26 +595,6 @@ export default function Index() {
                 />
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-bark mb-3">Время</label>
-                <div className="grid grid-cols-4 gap-2">
-                  {timeSlots.map((t) => (
-                    <button
-                      type="button"
-                      key={t}
-                      onClick={() => setSelectedTime(t)}
-                      className={`py-2 rounded-xl border text-sm transition-all ${
-                        selectedTime === t
-                          ? "border-moss bg-moss text-white"
-                          : "border-clay/30 bg-warm-white text-bark hover:border-clay"
-                      }`}
-                    >
-                      {t}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-bark mb-2">Имя</label>
@@ -444,13 +638,14 @@ export default function Index() {
         <div className="container mx-auto max-w-6xl flex flex-col md:flex-row items-center justify-between gap-6">
           <div>
             <div className="font-cormorant text-xl font-semibold text-bark">Артамонова Екатерина</div>
-            <div className="text-bark/55 text-sm mt-1">Мастер массажа и ЛФК · Москва</div>
+            <div className="text-bark/55 text-sm mt-1">Мастер массажа и ЛФК</div>
           </div>
           <div className="flex gap-6 text-sm text-bark/60">
             <a href="#services" className="hover:text-moss transition-colors">Услуги</a>
+            <a href="#price" className="hover:text-moss transition-colors">Прайс</a>
             <a href="#about" className="hover:text-moss transition-colors">О мастере</a>
+            <a href="#gallery" className="hover:text-moss transition-colors">Галерея</a>
             <a href="#reviews" className="hover:text-moss transition-colors">Отзывы</a>
-            <a href="#booking" className="hover:text-moss transition-colors">Запись</a>
           </div>
           <div className="flex gap-3">
             <a href="#" className="w-9 h-9 bg-clay/15 rounded-full flex items-center justify-center hover:bg-clay/30 transition-colors text-bark">
@@ -465,7 +660,7 @@ export default function Index() {
           </div>
         </div>
         <div className="text-center text-bark/35 text-xs mt-8">
-          © 2024 Артамонова Екатерина. Все права защищены.
+          © 2026 Артамонова Екатерина. Все права защищены.
         </div>
       </footer>
     </div>

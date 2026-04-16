@@ -655,131 +655,167 @@ export default function Index() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
-            {/* SVG MAP */}
-            <div className="md:col-span-2 rounded-3xl overflow-hidden border border-clay/20 shadow-sm bg-[#e8f0e4]" style={{ height: "420px" }}>
-              <svg viewBox="0 0 700 420" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+            {/* SVG MAP — реальный маршрут по скриншоту 2ГИС */}
+            <div className="md:col-span-2 rounded-3xl overflow-hidden border border-clay/20 shadow-sm" style={{ height: "420px" }}>
+              <svg viewBox="0 0 700 560" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
                 <defs>
-                  {/* Route animation */}
                   <style>{`
                     @keyframes drawRoute {
-                      from { stroke-dashoffset: 900; }
+                      from { stroke-dashoffset: 1100; }
                       to   { stroke-dashoffset: 0; }
                     }
                     @keyframes popIn {
-                      0%   { transform: scale(0); opacity: 0; }
-                      70%  { transform: scale(1.3); opacity: 1; }
-                      100% { transform: scale(1); opacity: 1; }
+                      0%   { opacity: 0; transform: scale(0) translateY(8px); }
+                      70%  { opacity: 1; transform: scale(1.2) translateY(-2px); }
+                      100% { opacity: 1; transform: scale(1) translateY(0); }
                     }
                     @keyframes pulse {
-                      0%, 100% { r: 10; opacity: 0.6; }
-                      50%       { r: 16; opacity: 0.2; }
+                      0%, 100% { opacity: 0.5; r: 14; }
+                      50%      { opacity: 0.15; r: 22; }
                     }
-                    @keyframes walkDot {
+                    @keyframes moveDot {
                       0%   { offset-distance: 0%; }
                       100% { offset-distance: 100%; }
                     }
                     .route-line {
-                      stroke-dasharray: 900;
-                      stroke-dashoffset: 900;
-                      animation: drawRoute 2.4s cubic-bezier(0.4,0,0.2,1) 0.3s forwards;
+                      stroke-dasharray: 1100;
+                      stroke-dashoffset: 1100;
+                      animation: drawRoute 2.8s cubic-bezier(0.4,0,0.2,1) 0.5s forwards;
                     }
-                    .pin-metro {
-                      transform-origin: 120px 290px;
-                      animation: popIn 0.4s ease 2.8s both;
-                    }
-                    .pin-dest {
-                      transform-origin: 560px 110px;
-                      animation: popIn 0.5s ease 2.6s both;
-                    }
-                    .pulse-dest {
-                      transform-origin: 560px 110px;
-                      animation: pulse 1.8s ease-in-out 3.1s infinite;
-                    }
-                    .walk-dot {
-                      offset-path: path('M120,290 L120,230 L200,230 L200,180 L310,180 L310,140 L430,140 L430,110 L560,110');
-                      animation: walkDot 2.4s cubic-bezier(0.4,0,0.2,1) 0.3s forwards;
+                    .pin-metro { animation: popIn 0.45s ease 0.3s both; }
+                    .pin-dest  { animation: popIn 0.5s  ease 3.4s both; }
+                    .pulse-ring { animation: pulse 2s ease-in-out 3.9s infinite; }
+                    .moving-dot {
+                      offset-path: path('M350,470 L350,310 L370,310 L370,255 L420,255 L420,120 L240,120 L240,95');
+                      animation: moveDot 2.8s cubic-bezier(0.4,0,0.2,1) 0.5s both;
                       offset-distance: 0%;
                     }
                   `}</style>
                 </defs>
 
-                {/* Background */}
-                <rect width="700" height="420" fill="#eef4ea" rx="24"/>
+                {/* ── ФОН ── */}
+                <rect width="700" height="560" fill="#f0ede3"/>
 
-                {/* City blocks */}
-                <rect x="40"  y="60"  width="120" height="80"  rx="6" fill="#dde8d4" stroke="#c8d8be" strokeWidth="1"/>
-                <rect x="40"  y="160" width="60"  height="110" rx="6" fill="#dde8d4" stroke="#c8d8be" strokeWidth="1"/>
-                <rect x="110" y="160" width="70"  height="50"  rx="6" fill="#dde8d4" stroke="#c8d8be" strokeWidth="1"/>
-                <rect x="110" y="220" width="70"  height="50"  rx="6" fill="#dde8d4" stroke="#c8d8be" strokeWidth="1"/>
-                <rect x="220" y="60"  width="100" height="100" rx="6" fill="#dde8d4" stroke="#c8d8be" strokeWidth="1"/>
-                <rect x="220" y="200" width="60"  height="80"  rx="6" fill="#dde8d4" stroke="#c8d8be" strokeWidth="1"/>
-                <rect x="340" y="60"  width="80"  height="60"  rx="6" fill="#dde8d4" stroke="#c8d8be" strokeWidth="1"/>
-                <rect x="340" y="200" width="60"  height="90"  rx="6" fill="#dde8d4" stroke="#c8d8be" strokeWidth="1"/>
-                <rect x="460" y="40"  width="90"  height="50"  rx="6" fill="#dde8d4" stroke="#c8d8be" strokeWidth="1"/>
-                <rect x="460" y="160" width="60"  height="80"  rx="6" fill="#dde8d4" stroke="#c8d8be" strokeWidth="1"/>
-                <rect x="560" y="160" width="100" height="80"  rx="6" fill="#dde8d4" stroke="#c8d8be" strokeWidth="1"/>
-                <rect x="560" y="260" width="100" height="120" rx="6" fill="#dde8d4" stroke="#c8d8be" strokeWidth="1"/>
-                <rect x="200" y="310" width="100" height="80"  rx="6" fill="#dde8d4" stroke="#c8d8be" strokeWidth="1"/>
-                <rect x="340" y="320" width="100" height="70"  rx="6" fill="#dde8d4" stroke="#c8d8be" strokeWidth="1"/>
-                <rect x="460" y="300" width="80"  height="100" rx="6" fill="#dde8d4" stroke="#c8d8be" strokeWidth="1"/>
+                {/* ── ЗЕЛЁНЫЕ ПАРКИ/СКВЕРЫ ── */}
+                <rect x="440" y="60"  width="130" height="100" rx="8" fill="#c8dbb8"/>
+                <rect x="440" y="370" width="260" height="100" rx="8" fill="#c8dbb8"/>
+                <rect x="0"   y="350" width="200" height="120" rx="8" fill="#c8dbb8"/>
+                <rect x="520" y="180" width="80"  height="80"  rx="6" fill="#d4e6c4"/>
+                <rect x="0"   y="60"  width="90"  height="90"  rx="6" fill="#d4e6c4"/>
 
-                {/* Streets — horizontal */}
-                <rect x="0"   y="215" width="700" height="16" rx="0" fill="#f5f0e6" stroke="#ddd5c0" strokeWidth="0.5"/>
-                <rect x="0"   y="125" width="700" height="14" rx="0" fill="#f5f0e6" stroke="#ddd5c0" strokeWidth="0.5"/>
-                <rect x="0"   y="290" width="700" height="12" rx="0" fill="#ede8db" stroke="#ddd5c0" strokeWidth="0.5"/>
+                {/* ── КВАРТАЛЫ (тёмно-бежевые здания) ── */}
+                {/* Верхний левый */}
+                <rect x="10"  y="10"  width="200" height="60"  rx="5" fill="#ddd8cc"/>
+                <rect x="10"  y="80"  width="80"  height="50"  rx="5" fill="#ddd8cc"/>
+                <rect x="100" y="80"  width="110" height="50"  rx="5" fill="#ddd8cc"/>
+                {/* Потанинская 6 — здание назначения */}
+                <rect x="160" y="80"  width="60"  height="35"  rx="4" fill="#d4c8b0" stroke="#b8a888" strokeWidth="1.5"/>
+                {/* Верхний правый */}
+                <rect x="440" y="10"  width="120" height="45"  rx="5" fill="#ddd8cc"/>
+                <rect x="570" y="10"  width="120" height="80"  rx="5" fill="#ddd8cc"/>
+                <rect x="570" y="100" width="120" height="70"  rx="5" fill="#ddd8cc"/>
+                {/* Средние кварталы слева */}
+                <rect x="10"  y="175" width="160" height="70"  rx="5" fill="#ddd8cc"/>
+                <rect x="10"  y="255" width="80"  height="80"  rx="5" fill="#ddd8cc"/>
+                <rect x="100" y="255" width="80"  height="80"  rx="5" fill="#ddd8cc"/>
+                {/* Средние кварталы справа */}
+                <rect x="440" y="175" width="70"  height="70"  rx="5" fill="#ddd8cc"/>
+                <rect x="520" y="175" width="60"  height="70"  rx="5" fill="#ddd8cc" opacity="0.6"/>
+                <rect x="440" y="255" width="150" height="80"  rx="5" fill="#ddd8cc"/>
+                {/* Нижние кварталы */}
+                <rect x="10"  y="480" width="180" height="70"  rx="5" fill="#ddd8cc"/>
+                <rect x="200" y="480" width="140" height="70"  rx="5" fill="#ddd8cc"/>
+                <rect x="440" y="480" width="100" height="70"  rx="5" fill="#ddd8cc"/>
 
-                {/* Streets — vertical */}
-                <rect x="180" y="0" width="18"  height="420" rx="0" fill="#f5f0e6" stroke="#ddd5c0" strokeWidth="0.5"/>
-                <rect x="320" y="0" width="16"  height="420" rx="0" fill="#f5f0e6" stroke="#ddd5c0" strokeWidth="0.5"/>
-                <rect x="450" y="0" width="14"  height="420" rx="0" fill="#f5f0e6" stroke="#ddd5c0" strokeWidth="0.5"/>
-                <rect x="90"  y="0" width="14"  height="420" rx="0" fill="#f5f0e6" stroke="#ddd5c0" strokeWidth="0.5"/>
-                <rect x="550" y="0" width="12"  height="420" rx="0" fill="#ede8db" stroke="#ddd5c0" strokeWidth="0.5"/>
+                {/* ── КРАСНЫЙ ПРОСПЕКТ (широкий, вертикально по центру) ── */}
+                {/* Разделительная полоса */}
+                <rect x="330" y="0" width="50" height="560" fill="#ede8db"/>
+                <rect x="342" y="0" width="26" height="560" fill="#b8b0a0" opacity="0.3"/>
+                {/* Полосы */}
+                <rect x="330" y="0" width="22" height="560" fill="#e8e0d0"/>
+                <rect x="358" y="0" width="22" height="560" fill="#e8e0d0"/>
+                {/* Разметка */}
+                {[0,40,80,120,160,200,240,280,320,360,400,440,480,520].map((y, i) => (
+                  <rect key={i} x="349" y={y+8} width="4" height="20" rx="2" fill="#ccc4b0" opacity="0.7"/>
+                ))}
 
-                {/* Street labels */}
-                <text x="198" y="212" fontSize="9" fill="#9a8e78" fontFamily="sans-serif" transform="rotate(-90,198,212)">ул. Ленина</text>
-                <text x="338" y="208" fontSize="9" fill="#9a8e78" fontFamily="sans-serif" transform="rotate(-90,338,208)">ул. Серебренниковская</text>
-                <text x="350" y="122" fontSize="9" fill="#9a8e78" fontFamily="sans-serif">пр. Дмитрия Яворницкого</text>
-                <text x="580" y="108" fontSize="9" fill="#9a8e78" fontFamily="sans-serif">ул. Потанинская</text>
-                <text x="15"  y="209" fontSize="8" fill="#9a8e78" fontFamily="sans-serif">ул. Щетинкина</text>
+                {/* ── УЛ. ЛЕНИНА (горизонтальная, внизу) ── */}
+                <rect x="0"   y="430" width="700" height="30" fill="#e8e0d0"/>
+                <rect x="0"   y="440" width="700" height="10" fill="#ddd8c8" opacity="0.5"/>
 
-                {/* Animated RED route */}
-                <polyline
+                {/* ── УЛ. ПОТАНИНСКАЯ (горизонтальная, вверху) ── */}
+                <rect x="0"   y="110" width="700" height="26" fill="#e8e0d0"/>
+                <rect x="0"   y="120" width="700" height="8"  fill="#ddd8c8" opacity="0.5"/>
+
+                {/* ── ПОПЕРЕЧНАЯ УЛИЦА (средняя) ── */}
+                <rect x="0"   y="250" width="700" height="20" fill="#e8e0d0"/>
+
+                {/* ── ПОДПИСИ УЛИЦ ── */}
+                <text x="355" y="405" fontSize="11" fill="#6b6358" fontFamily="sans-serif" fontWeight="600" textAnchor="middle" transform="rotate(-90,355,405)">Красный проспект</text>
+                <text x="100" y="448" fontSize="10" fill="#6b6358" fontFamily="sans-serif">ул. Ленина</text>
+                <text x="480" y="448" fontSize="10" fill="#6b6358" fontFamily="sans-serif">ул. Ленина</text>
+                <text x="20"  y="107" fontSize="10" fill="#6b6358" fontFamily="sans-serif">ул. Потанинская</text>
+                <text x="480" y="107" fontSize="10" fill="#6b6358" fontFamily="sans-serif">ул. Потанинская</text>
+                <text x="20"  y="248" fontSize="9"  fill="#6b6358" fontFamily="sans-serif">ул. Коммунистическая</text>
+
+                {/* ── «Лаврушка» ориентир ── */}
+                <rect x="378" y="252" width="54" height="18" rx="9" fill="#4caf50" opacity="0.85"/>
+                <text x="405" y="265" fontSize="8" fill="white" textAnchor="middle" fontFamily="sans-serif" fontWeight="600">Лаврушка</text>
+
+                {/* ── АНИМИРОВАННЫЙ МАРШРУТ (красные точки как в 2ГИС) ── */}
+                {/* Маршрут: метро (350,470) → вверх по Красному проспекту → (350,255) → налево (420,255) → вверх (420,120) → налево по Потанинской → (240,120) → (240,95) к зданию */}
+                <path
                   className="route-line"
-                  points="120,290 120,230 200,230 200,180 310,180 310,140 430,140 430,110 560,110"
+                  d="M350,470 L350,270 L420,270 L420,120 L240,120 L240,95"
                   fill="none"
                   stroke="#e53935"
-                  strokeWidth="4"
+                  strokeWidth="5"
                   strokeLinecap="round"
                   strokeLinejoin="round"
+                  strokeDasharray="8 7"
                 />
 
-                {/* Walking dot along route */}
-                <circle className="walk-dot" r="5" fill="#e53935" opacity="0.85"/>
+                {/* Движущаяся точка по маршруту */}
+                <circle className="moving-dot" r="6" fill="#e53935" opacity="0.9"/>
 
-                {/* METRO pin */}
+                {/* ── МЕТРО — СТАРТОВАЯ ТОЧКА ── */}
                 <g className="pin-metro">
-                  <circle cx="120" cy="290" r="18" fill="#1565c0" opacity="0.15"/>
-                  <circle cx="120" cy="290" r="13" fill="#1565c0"/>
-                  <text x="120" y="294" fontSize="11" fill="white" textAnchor="middle" fontWeight="bold" fontFamily="sans-serif">M</text>
-                  <rect x="60" y="308" width="120" height="22" rx="11" fill="white" opacity="0.9"/>
-                  <text x="120" y="323" fontSize="9.5" fill="#1565c0" textAnchor="middle" fontFamily="sans-serif" fontWeight="600">Площадь Ленина</text>
+                  {/* Белый фон таблички */}
+                  <rect x="254" y="485" width="190" height="30" rx="15" fill="white" opacity="0.95" filter="url(#shadow)"/>
+                  {/* Метка М (красная) */}
+                  <circle cx="275" cy="500" r="13" fill="#e53935"/>
+                  <text x="275" y="505" fontSize="13" fill="white" textAnchor="middle" fontFamily="sans-serif" fontWeight="800">М</text>
+                  {/* Номер выхода */}
+                  <rect x="289" y="491" width="18" height="18" rx="3" fill="#444"/>
+                  <text x="298" y="504" fontSize="9" fill="white" textAnchor="middle" fontFamily="sans-serif" fontWeight="700">1</text>
+                  {/* Подпись */}
+                  <text x="390" y="505" fontSize="10" fill="#1a1a1a" textAnchor="middle" fontFamily="sans-serif" fontWeight="700">Площадь Ленина</text>
                 </g>
 
-                {/* DESTINATION pulse ring */}
-                <circle className="pulse-dest" cx="560" cy="110" r="10" fill="#e53935" opacity="0.4"/>
+                {/* ── ПУЛЬС У ПУНКТА НАЗНАЧЕНИЯ ── */}
+                <circle className="pulse-ring" cx="240" cy="90" r="14" fill="#e53935"/>
 
-                {/* DESTINATION pin */}
+                {/* ── ПУНКТ НАЗНАЧЕНИЯ — ПОТАНИНСКАЯ 6 ── */}
                 <g className="pin-dest">
-                  <circle cx="560" cy="110" r="16" fill="#e53935" opacity="0.18"/>
-                  <circle cx="560" cy="110" r="11" fill="#e53935"/>
-                  <text x="560" y="114" fontSize="13" fill="white" textAnchor="middle" fontFamily="sans-serif">●</text>
-                  <rect x="474" y="78" width="172" height="24" rx="12" fill="white" opacity="0.95"/>
-                  <text x="560" y="94" fontSize="9.5" fill="#c62828" textAnchor="middle" fontFamily="sans-serif" fontWeight="700">Потанинская, 6 — каб. 2</text>
+                  {/* Синяя капля как в 2ГИС */}
+                  <ellipse cx="240" cy="72" rx="16" ry="20" fill="#1565c0"/>
+                  <circle cx="240" cy="66" r="10" fill="white" opacity="0.3"/>
+                  <ellipse cx="240" cy="88" rx="6" ry="4" fill="#1565c0"/>
+                  <text x="240" y="70" fontSize="11" fill="white" textAnchor="middle" fontFamily="sans-serif" fontWeight="800">6</text>
+                  {/* Подпись */}
+                  <rect x="100" y="44" width="220" height="20" rx="10" fill="white" opacity="0.95"/>
+                  <text x="210" y="58" fontSize="10" fill="#1565c0" textAnchor="middle" fontFamily="sans-serif" fontWeight="700">Потанинская улица, 6</text>
                 </g>
 
-                {/* Distance badge */}
-                <rect x="270" y="148" width="90" height="20" rx="10" fill="#e53935" opacity="0.9"/>
-                <text x="315" y="162" fontSize="9" fill="white" textAnchor="middle" fontFamily="sans-serif" fontWeight="600">~12 мин пешком</text>
+                {/* ── БЕЙДЖ РАССТОЯНИЯ ── */}
+                <rect x="435" y="185" width="110" height="22" rx="11" fill="#e53935" opacity="0.92"/>
+                <text x="490" y="200" fontSize="9" fill="white" textAnchor="middle" fontFamily="sans-serif" fontWeight="600">~12 мин пешком</text>
+
+                {/* ── СТРЕЛКА СЕВЕРА ── */}
+                <circle cx="660" cy="40" r="18" fill="white" opacity="0.9"/>
+                <text x="660" y="35" fontSize="8" fill="#555" textAnchor="middle" fontFamily="sans-serif">С</text>
+                <polygon points="660,22 655,38 660,35 665,38" fill="#e53935"/>
+                <text x="660" y="52" fontSize="8" fill="#aaa" textAnchor="middle" fontFamily="sans-serif">Ю</text>
               </svg>
             </div>
 
